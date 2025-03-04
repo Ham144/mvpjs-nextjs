@@ -4,6 +4,7 @@ import ReactQueryWrapper from "../components/ReactQueryWrapper"
 import { ClerkProvider } from "@clerk/nextjs";
 import HeaderNavigation from "../components/HeaderNavigation"
 import { Toaster } from "react-hot-toast"
+import Script from "next/script";
 
 
 const aldrich = Aldrich({
@@ -20,15 +21,19 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        <Script src="https://cdn.paddle.com/paddle/v2/paddle.js"></Script>
+      </head>
       <ReactQueryWrapper>
-        <ClerkProvider>
+        <ClerkProvider
+          publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
+        >
           <body
-            className={`${aldrich.variable} antialiased`}
-            publishablekey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
+            className={`min-h-screen bg-primary  ${aldrich.variable} ${aldrich.variable} ${aldrich.className} antialiased  `}
           >
             <HeaderNavigation />
             <Toaster position="top-center" />
-            {children}
+            <main>{children}</main>
           </body>
         </ClerkProvider>
       </ReactQueryWrapper>
