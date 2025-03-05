@@ -22,7 +22,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        <Script src="https://cdn.paddle.com/paddle/v2/paddle.js"></Script>
+        <Script src="https://cdn.paddle.com/paddle/v2/paddle.js" />
       </head>
       <ReactQueryWrapper>
         <ClerkProvider
@@ -33,7 +33,7 @@ export default function RootLayout({ children }) {
           >
             <HeaderNavigation />
             <Toaster position="top-center" />
-            <main>{children}</main>
+            <main className="max-md:pr-12">{children}</main>
           </body>
         </ClerkProvider>
       </ReactQueryWrapper>
