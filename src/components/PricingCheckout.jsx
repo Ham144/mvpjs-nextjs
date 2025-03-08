@@ -41,8 +41,6 @@ export default function Pricing() {
 		});
 	}, []);
 
-	console.log(pricingOptions);
-
 	return (
 		<div id="pricing">
 			<div className="bg-white  rounded-lg p-6 md:p-12 text-center">
