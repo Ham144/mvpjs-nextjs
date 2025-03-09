@@ -1,13 +1,12 @@
 import { Aldrich } from "next/font/google";
 import "./globals.css";
 import ReactQueryWrapper from "../components/ReactQueryWrapper"
-import { ClerkProvider } from "@clerk/nextjs";
-import HeaderNavigation from "../components/HeaderNavigation"
 import { Toaster } from "react-hot-toast"
 import Script from "next/script";
-
-
+import Main from "../components/Main";
+import SessionProviderWrapper from "../components/SessionProviderWrapper";
 const aldrich = Aldrich({
+
   variable: "--font-aldrich",
   subsets: ["latin"],
   weight: "400"
@@ -25,17 +24,16 @@ export default function RootLayout({ children }) {
         <Script src="https://cdn.paddle.com/paddle/v2/paddle.js" />
       </head>
       <ReactQueryWrapper>
-        <ClerkProvider
-          publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
+        <body
+          className={`min-h-screen bg-primary  ${aldrich.variable} ${aldrich.variable} ${aldrich.className} antialiased  `}
         >
-          <body
-            className={`min-h-screen bg-primary  ${aldrich.variable} ${aldrich.variable} ${aldrich.className} antialiased  `}
-          >
-            <HeaderNavigation />
-            <Toaster position="top-center" />
-            <main className="max-md:pr-12">{children}</main>
-          </body>
-        </ClerkProvider>
+          <Toaster position="top-center" />
+          <SessionProviderWrapper>
+            <Main>
+              {children}
+            </Main>
+          </SessionProviderWrapper>
+        </body>
       </ReactQueryWrapper>
     </html>
   );

@@ -1,12 +1,10 @@
 "use client";
 
-import { useClerk } from "@clerk/nextjs";
 import { Check } from "lucide-react";
 import React, { useState } from "react";
 
 const ModalRegister = () => {
 	const [email, setEmail] = useState();
-	const { openSignUp } = useClerk();
 
 	return (
 		<dialog
@@ -69,7 +67,6 @@ const ModalRegister = () => {
 				<form
 					onSubmit={(e) => {
 						e.preventDefault();
-						openSignUp();
 					}}
 					className="flex flex-col gap-4"
 				>

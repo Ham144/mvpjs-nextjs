@@ -1,10 +1,24 @@
-daisyui ✅ 
-tanstack React Query ✅ 
-zustand ✅
-axios ✅
-mongodb mongoose ✅
-lucide-react ✅
-react-hot-toast ✅ 
-clerk authentication ✅
-cloudinary ✅
-paddle payment ✅ 
+tech stack efesiensi pengorbanan (waktu&tenaga atau cost atau efektifitas)
+
+--development--
+
+daisyui (free) ✅
+tanstack React Query (free) ✅ 
+zustand (free) ✅
+axios (free) ✅
+lucide-react (free) ✅
+react-hot-toast (free) ✅ 
+paddle (payment free) ✅ 
+mongodb (database untuk doc free) ✅
+nextauth (authentication free) ✅
+cloudinary (database untuk media foto/video) 
+mailgun (buat kirim magic link) ✅
+
+grokAI (AI powering for best output)
+gemini flash (AI powering for fastest output)
+
+--production--
+Vercel (hosting fullstack $20)
+postHog (analytics ) 
+
+
