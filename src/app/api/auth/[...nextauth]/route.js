@@ -1,17 +1,38 @@
 // app/api/auth/[...nextauth]/route.js
 import NextAuth from "next-auth";
-import MailgunProvider from "next-auth/providers/mailgun";
+import EmailProvider from "next-auth/providers/email";
+import { MongooseAdapter } from "../../../../lib/mongoose-adapter.js";
+import connectDB from "../../../../libs/connectDB.js";
 
-export const authOptions = {
+// Pastikan koneksi database sudah terbentuk
+connectDB();
+
+const handler = NextAuth({
+    adapter: MongooseAdapter(),
     providers: [
-        MailgunProvider({
-            clientId: process.env.MAILGUN_CLIENT_ID,
-            clientSecret: process.env.MAILGUN_CLIENT_SECRET,
+        EmailProvider({
+            server: {
+                host: process.env.EMAIL_SERVER_HOST,
+                port: process.env.EMAIL_SERVER_PORT,
+                auth: {
+                    user: process.env.EMAIL_SERVER_USER,
+                    pass: process.env.EMAIL_SERVER_PASSWORD,
+                },
+            },
+            from: process.env.EMAIL_FROM,
         }),
     ],
-    secret: process.env.NEXTAUTH_SECRET,
-};
-
-const handler = NextAuth(authOptions);
+    pages: {
+        signIn: "/auth/signin",
+        verifyRequest: "/auth/verify-request",
+        error: "/auth/error",
+    },
+    callbacks: {
+        async session({ session, user }) {
+            session.user.id = user.id;
+            return session;
+        },
+    },
+});
 
 export { handler as GET, handler as POST };

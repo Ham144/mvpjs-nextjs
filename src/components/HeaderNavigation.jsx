@@ -4,8 +4,12 @@ import { HeartHandshake, LogOut, UserRound } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import ModalRegister from "./ModalRegister";
+import { useSession, signOut } from "next-auth/react";
 
 const HeaderNavigation = () => {
+	const { data: session, status } = useSession();
+	const isLoading = status === "loading";
+
 	return (
 		<div className="navbar   text-white max-md:text-black max-md:bg-transparent md:fixed md:top-0 md:left-0 md:w-full md:flex md:items-center md:justify-between max-md:fixed max-md:top-0 max-md:right-0 max-md:w-12 max-md:h-full max-md:flex-col max-md:items-end max-md:justify-end  max-md:backdrop-blur-md z-40">
 			{/* Logo Section (Hidden on Mobile) */}
@@ -83,6 +87,30 @@ const HeaderNavigation = () => {
 
 			{/* Modal */}
 			<ModalRegister key={"modalRegister"} />
+
+			{/* Login Status */}
+			<div className="flex-none max-md:hidden">
+				{isLoading ? (
+					<div className="text-sm text-gray-500">Memuat...</div>
+				) : session ? (
+					<div className="flex items-center space-x-4">
+						<span className="text-sm text-gray-700">{session.user.email}</span>
+						<button
+							onClick={() => signOut({ callbackUrl: "/" })}
+							className="rounded-md bg-red-600 px-3 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-red-500"
+						>
+							Keluar
+						</button>
+					</div>
+				) : (
+					<Link
+						href="/auth/signin"
+						className="rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500"
+					>
+						Masuk
+					</Link>
+				)}
+			</div>
 		</div>
 	);
 };

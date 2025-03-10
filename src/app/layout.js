@@ -1,34 +1,30 @@
-import { Aldrich } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import ReactQueryWrapper from "../components/ReactQueryWrapper"
 import { Toaster } from "react-hot-toast"
 import Script from "next/script";
 import Main from "../components/Main";
 import SessionProviderWrapper from "../components/SessionProviderWrapper";
-const aldrich = Aldrich({
+import HeaderNavigation from "../components/HeaderNavigation";
 
-  variable: "--font-aldrich",
-  subsets: ["latin"],
-  weight: "400"
-});
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Buat Title ayang disini",
-  description: "ini adalah boilerplate lengkap untuk memulais MVP saas mu cepat, tidak pakai typescript dan eslint karena memperlambat compile dan juga typescript sangat memperlambat pekerjaan",
+  title: "Aplikasi Saya",
+  description: "Aplikasi dengan autentikasi magic link",
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="id">
       <head>
         <Script src="https://cdn.paddle.com/paddle/v2/paddle.js" />
       </head>
       <ReactQueryWrapper>
-        <body
-          className={`min-h-screen bg-primary  ${aldrich.variable} ${aldrich.variable} ${aldrich.className} antialiased  `}
-        >
+        <body className={inter.className}>
           <Toaster position="top-center" />
           <SessionProviderWrapper>
+            <HeaderNavigation />
             <Main>
               {children}
             </Main>
